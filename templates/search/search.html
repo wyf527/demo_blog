@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}搜索结果页面{% endblock %}
+
+{% block left %}
+    <br>
+    <br>
+    <br>
+    <div class="archives">
+        {# 首先判断搜索结果是否为空#}
+        {% if query %}
+            {#page.object_list，page是分页器调用page方法后的对象，object_list是分页对象自带属性，固定写法，是分页后的单页内的对象#}
+            {% for post in page.object_list %}
+            <article class="archive-article archive-type-post">
+              <div class="archive-article-inner">
+                <header class="archive-article-header">
+                <a href="#" class="archive-article-date">
+                     <time>{{ post.object.publish_time | date:'Y-m' }}</time>
+                </a>
+
+                 <h1 itemprop="name">
+                      <a class="archive-article-title" target="_blank" href="/post/{{ post.object.id }}">{{ post.object.title }}</a>
+                 </h1>
+                 </header>
+              </div>
+            </article>
+                {% empty %}
+                    无记录
+            {% endfor %}
+        {% endif %}
+
+    </div>
+{% endblock %}

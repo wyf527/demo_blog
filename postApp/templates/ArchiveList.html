@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}分类——归档——页面
+{% endblock %}
+
+{% block left %}
+    <br>
+    <br>
+    <br>
+    <div class="archives">
+{#        {{r_archive }}#}
+        {% for a in r_archive %}
+
+            <article class="archive-article archive-type-post">
+              <div class="archive-article-inner">
+                <header class="archive-article-header">
+                <a href="#" class="archive-article-date">
+                     <time>{{ a.0 | date:'Y-m' }}</time>
+                </a>
+
+                 <h1 itemprop="name">
+                      <a class="archive-article-title" target="_blank" href="/archive/{{ a.0 | date:'Y'}}/{{ a.0 | date:'m'}}">数量：{{ a.1 }}</a>
+                 </h1>
+                 </header>
+              </div>
+            </article>
+                {% empty %}
+                    无记录
+            {% endfor %}
+
+    </div>
+{% endblock %}

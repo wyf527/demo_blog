@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}分类——归档——页面
+{% endblock %}
+
+{% block left %}
+    <br>
+    <br>
+    <br>
+    <div class="archives">
+
+        {% for post in postList %}
+            <article class="archive-article archive-type-post">
+              <div class="archive-article-inner">
+                <header class="archive-article-header">
+                <a href="#" class="archive-article-date">
+                     <time>{{ post.publish_time | date:'Y-m' }}</time>
+                </a>
+
+                 <h1 itemprop="name">
+                      <a class="archive-article-title" target="_blank" href="http://127.0.0.1:8001/post/{{ post.id }}">{{ post.title }}</a>
+                 </h1>
+                 </header>
+              </div>
+            </article>
+        {% endfor %}
+
+    </div>
+{% endblock %}

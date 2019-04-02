@@ -1,0 +1,12 @@
+1.项目作为一个闭环，url、view、html都要考虑到，充分利用页面内跳换(a标签等)，view中传递参数
+2.URL要配置成可以接受参数的形式，如：url(r'^page/(\d+)$',views.BlogView.as_view())
+3.分页1.
+    获取每页的数据，Pagnitor对象调用page()方法生成page对象
+    page对象根据页码返回什么？
+    返回对象
+  分页2
+    页码start、end范围，生成的pagelist=range(start,end+1)
+    利用page对象的number()
+
+
+

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}homePage{% endblock %}
+
+{% block left %}
+{#per_pag_obj看起来是单页的数据，但其实每一页数据数据格式首先还是列表，而且每一页中也不一定只是一条post对象#}
+{# 这取决于Paginator(objlist,per_page)中每一页的数据量，所有即使分页以后，依然可以遍历#}
+{# 源码 def __getitem__(self, index):#}
+{# class Page(collections.Sequence):#}
+    {% for post in per_pag_obj %}
+            <article class="article article-type-post">
+            <div class="article-meta">
+                <a class="article-date">
+                    <time>{{ post.publish_time }}</time>
+                </a>
+                <div class="article-category">
+                    <a class="article-category-link" href="http://127.0.0.1:8000/#" target="_blank">{{ post.category.cname }}</a>
+                </div>
+            </div>
+            <div class="article-inner">
+                <header class="article-header">
+                    <h1 itemprop="name">
+                        <a class="article-title" href="http://127.0.0.1:8000/#" target="_blank">{{ post.title }}</a>
+                    </h1>
+                </header>
+                <div class="article-entry" itemprop="articleBody">
+                    <h2>前言</h2>
+                    <hr>
+                   {{ post.desc }}
+
+                    <p class="article-more-link">
+                        <a href="http://127.0.0.1:8000/post/{{ post.id }}" target="_blank">阅读全文</a>
+                    </p>
+                </div>
+                <footer class="article-footer">
+                    <a data-url="存放文章的url" class="article-share-link" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&amp;title=&amp;desc=&amp;summary=&amp;site=&amp;pics=">分享</a>
+                    <ul class="article-tag-list">
+
+                        {% for tag in post.tag.all %}
+                            <li class="article-tag-list-item">
+                                <a class="article-tag-list-link" href="http://127.0.0.1:8000/#">{{ tag.tname }}</a>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </footer>
+            </div>
+        </article>
+    {% endfor %}
+
+    <nav id="page-nav">
+                {% if per_pag_obj.has_previous %}
+                    <a class="extend prev" rel="prev" href="http://127.0.0.1:8000/page/{{ per_pag_obj.previous_page_number }}">Previous </a>
+                {% endif %}
+                    {% for pagenum in pageList %}
+                        {# page对象自带的【当前页码】方法与遍历出来的页码进行比较#}
+                        {% if per_pag_obj.number == pagenum %}
+                            <span class="page-number current">{{ pagenum }}</span>
+                        {% else %}
+                            <a class="page-number" href="http://127.0.0.1:8000/page/{{ pagenum }}">{{ pagenum }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% if per_pag_obj.has_next %}
+                    <a class="extend next" rel="next" href="http://127.0.0.1:8000/page/{{ per_pag_obj.next_page_number }}">Next »</a>
+                {% endif %}
+        </nav>
+
+
+{% endblock %}

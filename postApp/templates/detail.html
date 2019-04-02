@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}详情页{% endblock %}
+
+{% block left %}
+    {% for p in pObj %}
+        <article class="article article-type-post">
+            <div class="article-meta">
+              <a class="article-date">
+                <time>{{ p.publish_time }}</time>
+              </a>
+              <div class="article-category">
+                <a class="article-category-link" href="#" target="_blank">{{ p.category.cname }}</a>
+              </div>
+            </div>
+            <div class="article-inner">
+                <header class="article-header">
+                    <h1 itemprop="name">
+                        <a class="article-title" href="/post/{{ p.id }}">{{ p.title }}</a>
+                    </h1>
+                </header>
+                <div class="article-entry" itemprop="articleBody">
+                    <h2>前言</h2>
+                        {{ p.desc }}
+                    <hr>
+                    <br>
+                    {{ p.content | safe}}
+
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </article>
+
+        {% empty %}
+            <article class="article article-type-post">查无此文</article>
+
+
+
+    {% endfor %}
+
+
+{% endblock %}
